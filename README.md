@@ -1,9 +1,5 @@
 # Firebase PHP Client with curl and context support
 
-[![Build Status](https://drone.io/github.com/aspertw/firebase-php/status.png)](https://drone.io/github.com/aspertw/firebase-php/latest)
-
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/aspertw/firebase-php/badges/quality-score.png?s=239ffca76628b5a86540b9def187e2f8a199cb10)](https://scrutinizer-ci.com/g/aspertw/firebase-php/)
-
 Based on the [Firebase REST API](https://www.firebase.com/docs/rest-api.html).
 
 Available on [Packagist](https://packagist.org/packages/aspertw/firebase-php).
