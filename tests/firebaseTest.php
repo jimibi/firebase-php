@@ -22,8 +22,8 @@ class FirebaseTest extends \PHPUnit_Framework_TestCase
   );
 
   // --- set up your own database here
-  const DEFAULT_URL = 'https://kidsplace.firebaseio.com/';
-  const DEFAULT_TOKEN = 'MqL0c8tKCtheLSYcygYNtGhU8Z2hULOFs9OKPdEp';
+  const DEFAULT_URL = 'https://asper.firebaseio.com/';
+  const DEFAULT_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjg2NTQ1OTc1MDQ3MSwiZGVidWciOnRydWUsInYiOjAsImQiOnsidWlkIjoiQXNwZXIifSwiaWF0IjoxNDU5ODM2ODcxfQ.JKNL_RwMUOzBgEgVeRnYsnPc_9CjEjKc6_VRdTVPD4E';
   const DEFAULT_TODO_PATH = '/sample/todo';
   const DELETE_PATH = '/sample';
   const DEFAULT_SET_RESPONSE = '{"name":"Pick the milk","priority":1}';

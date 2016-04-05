@@ -25,6 +25,7 @@ class FirebaseLib implements FirebaseInterface
     private $_baseURI;
     private $_timeout;
     private $_token;
+    private $_requestExtension = 'curl';
 
     /**
      * Constructor
@@ -39,7 +40,7 @@ class FirebaseLib implements FirebaseInterface
         }
 
         if (!extension_loaded('curl')) {
-            trigger_error('Extension CURL is not loaded.', E_USER_ERROR);
+            $this->_requestExtension = 'context';
         }
 
         $this->setBaseURI($baseURI);
@@ -151,9 +152,7 @@ class FirebaseLib implements FirebaseInterface
     public function get($path)
     {
         try {
-            $ch = $this->_getCurlHandler($path, 'GET');
-            $return = curl_exec($ch);
-            curl_close($ch);
+            $return = $this->_sendRequest($path, 'GET');
         } catch (Exception $e) {
             $return = null;
         }
@@ -171,9 +170,7 @@ class FirebaseLib implements FirebaseInterface
     public function delete($path)
     {
         try {
-            $ch = $this->_getCurlHandler($path, 'DELETE');
-            $return = curl_exec($ch);
-            curl_close($ch);
+            $return = $this->_sendRequest($path, 'DELETE');
         } catch (Exception $e) {
             $return = null;
         }
@@ -208,14 +205,56 @@ class FirebaseLib implements FirebaseInterface
             'Content-Length: ' . strlen($jsonData)
         );
         try {
-            $ch = $this->_getCurlHandler($path, $method);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-            $return = curl_exec($ch);
-            curl_close($ch);
+            $return = $this->_sendRequest($path, $method, $jsonData, $header);
         } catch (Exception $e) {
             $return = null;
         }
+        return $return;
+    }
+
+    private function _sendRequest($path, $method, $data=null, Array $header=[])
+    {
+        $return = null;
+
+        if( $this->_requestExtension == 'curl' ){
+            $ch = $this->_getCurlHandler($path, $method);
+
+            if( !is_null($data) ){
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            }
+
+            if( count($header) ){
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+            }
+
+            $return = curl_exec($ch);
+            curl_close($ch);
+        }
+
+        if( $this->_requestExtension == 'context' ){
+            $url = $this->_getJsonPath($path);
+           
+            if( $method == 'GET' ){
+                return file_get_contents($url);
+            }
+
+            $opts = [];            
+            $opts['http']['method'] = $method;
+
+            if( !is_null($data) ){
+                $opts['http']['content'] = $data;
+            }
+
+            if( count($header) ){
+                $opts['http']['header'] = implode("\r\n", $header);
+            }
+
+            $context  = stream_context_create($opts);
+
+            $return = file_get_contents($url, false, $context);
+
+        }
+
         return $return;
     }
 

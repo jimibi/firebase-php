@@ -1,13 +1,15 @@
 {
-  "name": "ktamas77/firebase-php",
-  "description": "Firebase PHP Client",
-  "homepage": "https://github.com/ktamas77/firebase-php",
+  "name": "aspertw/firebase-php",
+  "description": "Firebase PHP Client with context and curl support",
+  "homepage": "https://github.com/aspertw/firebase-php",
   "keywords": [
     "firebase",
     "REST",
-    "wrapper"
+    "wrapper",
+    "stream context",
+    "gae"
   ],
-  "version": "2.0.0",
+  "version": "2.1.0",
   "authors": [
     {
       "name": "Tamas Kalman",

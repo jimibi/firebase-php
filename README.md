@@ -1,21 +1,35 @@
-# Firebase PHP Client
+# Firebase PHP Client with curl and context support
 
-[![Build Status](https://drone.io/github.com/ktamas77/firebase-php/status.png)](https://drone.io/github.com/ktamas77/firebase-php/latest)
+[![Build Status](https://drone.io/github.com/aspertw/firebase-php/status.png)](https://drone.io/github.com/aspertw/firebase-php/latest)
 
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/ktamas77/firebase-php/badges/quality-score.png?s=239ffca76628b5a86540b9def187e2f8a199cb10)](https://scrutinizer-ci.com/g/ktamas77/firebase-php/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/aspertw/firebase-php/badges/quality-score.png?s=239ffca76628b5a86540b9def187e2f8a199cb10)](https://scrutinizer-ci.com/g/aspertw/firebase-php/)
 
 Based on the [Firebase REST API](https://www.firebase.com/docs/rest-api.html).
 
-Available on [Packagist](https://packagist.org/packages/ktamas77/firebase-php).
+Available on [Packagist](https://packagist.org/packages/aspertw/firebase-php).
 
 ### Adding Firebase PHP to your project using Composer
 
 ```bash
 cd <your_project>
-composer require ktamas77/firebase-php dev-master
+composer require aspertw/firebase-php dev-master
 ```
 
 More info about Composer at [getcomposer.org](http://getcomposer.org).
+
+### Forked from [ktamas77/firebase-php](https://github.com/ktamas77/firebase-php).
+
+Original version require curl extension.
+
+I made some change to support curl and stream context(using file_get_contents).
+
+if curl extension loaded, using curl to send request.
+
+if not, using file_get_contents and [stream contexts](http://php.net/manual/en/stream.contexts.php) to send.
+
+because GAE (Google App Engine) does not support curl extension, so I fork this project.
+
+↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓   ktamas77's document  ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
 
 ### Example
 ```php
